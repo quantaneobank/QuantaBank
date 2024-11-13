@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/css/main.css" />
+    <link rel="stylesheet" href="./assets/css/contact.css" />
+    <title>Quanta</title>
+  </head>
+  <body>
+    <header class="header" id="header">
+      <div class="container header__container">
+        <a class="header__logo" href="/">
+          <img src="./assets/images/logo.png" alt="Quanta" />
+          <h1>Quanta</h1>
+        </a>
+
+        <nav class="header__navigation">
+          <ul class="header_navigation__list">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about.html">About Us</a></li>
+            <li><a href="/calc.html">Credit calculator</a></li>
+            <li><a href="/contact.html">Contacts</a></li>
+            <li><a href="/profile.html">Personal Cabinet</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="contact">
+        <div class="container">
+          <h2 class="contact__title">Contacts</h2>
+
+          <div class="contact__wrapper">
+            <h3>Send us a message</h3>
+            <form class="contact__block contact__form" id="form">
+              <div>
+                <label for="name"> Your Name </label>
+                <input
+                  type="text"
+                  required
+                  id="name"
+                  name="name"
+                  placeholder="John..."
+                />
+              </div>
+              <div>
+                <label for="email"> Your Email </label>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="example@example.com"
+                  required
+                />
+              </div>
+              <div>
+                <label for="message"> Your Message </label>
+                <textarea
+                  name="message"
+                  id="message"
+                  placeholder="Hello!.."
+                  required
+                ></textarea>
+              </div>
+
+              <button type="submit">Send</button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
+    ></script>
+    <script>
+      emailjs.init({
+        publicKey: "W3mcYJZ5-6qy_fDAm",
+      });
+      const handleSend = (e) => {
+        e.preventDefault();
+
+        emailjs
+          .send("service_w66pjbr", "template_2st7gia", {
+            from_name: form.name.value,
+            message: form.email.value + "\n\n" + form.message.value,
+            to_email: "bekzat.salauat@kimep.kz",
+          })
+          .then(
+            function (response) {
+              alert("SUCCESS!");
+            },
+            function (error) {
+              alert("FAILED..." + error);
+            }
+          );
+      };
+
+      const form = document.querySelector("#form");
+      form.addEventListener("submit", handleSend);
+    </script>
+  </body>
+</html>

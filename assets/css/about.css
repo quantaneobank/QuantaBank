@@ -1,0 +1,54 @@
+.about {
+  padding: 50px;
+  height: 100%;
+  background: radial-gradient(circle, rgba(173, 216, 230, 0.4) 10%, transparent 100%);
+}
+
+main {
+  height: 100%;
+}
+
+body, html {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.about__title {
+  text-align: center;
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+.about__text {
+  font-size: 20px;
+}
+
+.about__list {
+  margin: 50px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 100%;
+  gap: 15px;
+
+  li {
+    list-style-type: disc;
+    span {
+      font-weight: 600;
+    }
+  }
+}
+
+footer {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  height: 80px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  border-top: 1px solid rgba(0,0,0,.4);
+  text-align: center;
+}

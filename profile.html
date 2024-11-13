@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/css/main.css" />
+    <link rel="stylesheet" href="./assets/css/profile.css" />
+    <title>Quanta</title>
+  </head>
+  <body>
+    <header class="header" id="header">
+      <div class="container header__container">
+        <a class="header__logo" href="/">
+          <img src="./assets/images/logo.png" alt="Quanta" />
+          <h1>Quanta</h1>
+        </a>
+
+        <nav class="header__navigation">
+          <ul class="header_navigation__list">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about.html">About Us</a></li>
+            <li><a href="/calc.html">Credit calculator</a></li>
+            <li><a href="/contact.html">Contacts</a></li>
+            <li><a href="/profile.html">Personal Cabinet</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="auth">
+        <div class="container auth-container" id="auth-container">
+          <h2 class="auth__title">Sign in</h2>
+
+          <div id="auth-form">
+            <form class="auth__block auth__form" id="form">
+              <div>
+                <label for="login">Login</label>
+                <input
+                  type="text"
+                  required
+                  id="login"
+                  name="login"
+                  placeholder="User"
+                />
+              </div>
+              <div>
+                <label for="password">Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="123456"
+                  required
+                />
+              </div>
+
+              <button type="submit">Sign in</button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const form = document.querySelector("#form");
+
+      const handleAuth = async (e) => {
+        e.preventDefault();
+
+        const login = e.target.login.value;
+        const password = e.target.password.value;
+
+        const response = await fetch("./assets/auth.json");
+        const data = await response.json();
+
+        const user = await data.find(
+          (item) => item.login === login && item.password === password
+        );
+        const isAuth = !!user;
+
+        if (!isAuth) alert("Incorrect login or password");
+        else {
+          const authContainer = document.querySelector("#auth-container");
+          const main = document.querySelector("#main");
+          const html = `
+           <div class="profile">
+            <h2>Hello, ${user.login}</h2>
+
+            <div class="card">
+              <div class="card__wrapper">
+                <p class="card__title">Your balance</p>
+                <span class="card__sum">${user.balance}</span>
+              </div>
+            </div>
+
+            <div class="faq__wrapper">
+              <h3 class="faq__title">FAQ</h3>
+              <ul class="faq">
+                <li>
+                  <details>
+                    <summary>
+                      <span>></span>How to calculate the monthly loan payment?
+                    </summary>
+                    you can use the
+                    <a href="/calc.html" class="faq__link">credit calculator</a>
+                    on our website
+                  </details>
+                </li>
+                <li>
+                  <details>
+                    <summary>
+                      <span>></span>What to do if there is an error?
+                    </summary>
+                    you can write to us
+                    <a href="/contact.html" class="faq__link">here</a>
+                  </details>
+                </li>
+              </ul>
+            </div>
+          </div>
+          `;
+          authContainer.innerHTML = html;
+          main.insertAdjacentHTML(
+            "beforeend",
+            `      
+            <footer>
+              Site created by Bekzat Salauat | 20241469 Kurmangaliyeva Saltanat |
+              20240366
+            </footer>
+            `
+          );
+        }
+      };
+
+      form.addEventListener("submit", handleAuth);
+    </script>
+  </body>
+</html>

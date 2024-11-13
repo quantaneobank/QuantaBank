@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/css/main.css" />
+    <link rel="stylesheet" href="./assets/css/calc.css" />
+    <title>Quanta</title>
+  </head>
+  <body>
+    <header class="header" id="header">
+      <div class="container header__container">
+        <a class="header__logo" href="/">
+          <img src="./assets/images/logo.png" alt="Quanta" />
+          <h1>Quanta</h1>
+        </a>
+
+        <nav class="header__navigation">
+          <ul class="header_navigation__list">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about.html">About Us</a></li>
+            <li><a href="/calc.html">Credit calculator</a></li>
+            <li><a href="/contact.html">Contacts</a></li>
+            <li><a href="/profile.html">Personal Cabinet</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="calc">
+        <div class="container">
+          <h2 class="calc__title">Credit calculator</h2>
+
+          <div class="calc_wrapper" id="calc_wrapper">
+            <form class="calc__block calc__form" id="form">
+              <div>
+                <label for="deadline"> Сredit term (month) </label>
+                <input
+                  type="number"
+                  required
+                  id="deadline"
+                  name="deadline"
+                  placeholder="12"
+                />
+              </div>
+              <div>
+                <label for="percent"> Percent (% / year) </label>
+                <input
+                  type="number"
+                  name="percent"
+                  id="percent"
+                  placeholder="12"
+                  required
+                />
+              </div>
+              <div>
+                <label for="sum"> Sum credit (monetary unit) </label>
+                <input
+                  type="number"
+                  name="sum"
+                  id="sum"
+                  placeholder="100000"
+                  required
+                />
+              </div>
+
+              <button type="submit">Count</button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const calcWrapper = document.querySelector("#calc_wrapper");
+      const handleCalc = (e) => {
+        e.preventDefault();
+
+        const percent = Number(e.target.percent.value);
+        const sum = Number(e.target.sum.value);
+        const deadline = Number(e.target.deadline.value);
+
+        const monthPercent = percent / 12 / 100;
+
+        const monthPay = Math.round(
+          (sum * monthPercent * Math.pow(1 + monthPercent, deadline)) /
+            (Math.pow(1 + monthPercent, deadline) - 1)
+        );
+        const total = monthPay * deadline;
+        const percentMoney = total - sum;
+
+        const html = `<div class="calc__block calc__info">
+              <div>
+                <h3>Monthly payment:</h3>
+                <p>${monthPay} (monetary unit)</p>
+              </div>
+              <div>
+                <h3>Total amount of payments:</h3>
+                <p>${total} (monetary unit)</p>
+              </div>
+              <div>
+                <h3>including %:</h3>
+                <p>${percentMoney} (monetary unit)</p>
+              </div>
+            </div>`;
+
+        calcWrapper.insertAdjacentHTML("beforeend", html);
+      };
+
+      const form = document.querySelector("#form");
+      form.addEventListener("submit", handleCalc);
+    </script>
+  </body>
+</html>
