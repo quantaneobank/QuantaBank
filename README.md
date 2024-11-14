@@ -1,3 +1,3 @@
 # QuantaBank
  
-This project was created by kimep students
+This project was created by kimep students for MIDTERM 2 | BCA
